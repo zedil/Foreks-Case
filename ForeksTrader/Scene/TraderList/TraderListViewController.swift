@@ -25,7 +25,7 @@ class TraderListViewController: UIViewController {
         collection.backgroundColor = .black
         collection.register(TraderListCell.self, forCellWithReuseIdentifier: TraderListCell.identifier)
         
-        collection.register(SectionTitleHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerView")
+        collection.register(SectionTitleHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionTitleHeaderView.identifier)
         return collection
     }()
     
@@ -124,12 +124,7 @@ extension TraderListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         if kind == UICollectionView.elementKindSectionHeader {
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerView", for: indexPath) as! SectionTitleHeaderView
-            
-            headerView.titleLabel.text = "Sembol"
-            
-            let leadingSpace: CGFloat = 20
-            headerView.frame.origin.x = leadingSpace
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionTitleHeaderView.identifier, for: indexPath) as! SectionTitleHeaderView
             
             
             return headerView

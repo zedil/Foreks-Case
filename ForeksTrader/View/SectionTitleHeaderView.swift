@@ -9,9 +9,20 @@ import UIKit
 
 class SectionTitleHeaderView: UICollectionReusableView {
     
+    static let identifier = "SectionTitleHeaderView"
+    
+    public let headerStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 10
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
     public let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.white
+        label.text = "Sembol"
         label.font = UIFont.boldSystemFont(ofSize: 22)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -20,7 +31,7 @@ class SectionTitleHeaderView: UICollectionReusableView {
     public let lastButton: UIButton = {
         let button = UIButton()
         button.setTitle("Son", for: .normal)
-        button.contentEdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        button.contentEdgeInsets = UIEdgeInsets(top: 1, left: 10, bottom: 1, right: 10)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.gray, for: .normal)
         return button
@@ -29,7 +40,7 @@ class SectionTitleHeaderView: UICollectionReusableView {
     public let diffButton: UIButton = {
         let button = UIButton()
         button.setTitle("% Fark", for: .normal)
-        button.contentEdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        button.contentEdgeInsets = UIEdgeInsets(top: 1, left: 10, bottom: 1, right: 10)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.gray, for: .normal)
         return button
@@ -38,6 +49,7 @@ class SectionTitleHeaderView: UICollectionReusableView {
     override public init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
+        applyConstraint()
         configureContent()
     }
     
@@ -45,42 +57,52 @@ class SectionTitleHeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+}
+
+// MARK: - UILayout
+extension SectionTitleHeaderView {
+    
     private func addSubviews() {
-        addSubview(titleLabel)
-        addSubview(lastButton)
-        addSubview(diffButton)
+        addSubview(headerStackView)
         
-        let titleLabelConst = [
-            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 4),
-            titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 4),
+        headerStackView.addArrangedSubview(titleLabel)
+        headerStackView.addArrangedSubview(lastButton)
+        headerStackView.addArrangedSubview(diffButton)
+    }
+    
+    func applyConstraint() {
+        let stackViewConst = [
+            headerStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            headerStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            headerStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
         ]
-        NSLayoutConstraint.activate(titleLabelConst)
-        
-        let diffButtonConst = [
-            diffButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -25),
-            diffButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 4),
-            diffButton.heightAnchor.constraint(equalToConstant: 20)
-        ]
-        NSLayoutConstraint.activate(diffButtonConst)
-        
-        diffButton.layer.borderWidth = 2
-        diffButton.layer.borderColor = UIColor.gray.cgColor
-        diffButton.layer.cornerRadius = 5
-        
-        let lastButtonConst = [
-            lastButton.trailingAnchor.constraint(equalTo: diffButton.leadingAnchor, constant: -10),
-            lastButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 4),
-            lastButton.heightAnchor.constraint(equalToConstant: 20)
-        ]
-        NSLayoutConstraint.activate(lastButtonConst)
+        NSLayoutConstraint.activate(stackViewConst)
+    }
+}
+
+// MARK: - Configure
+extension SectionTitleHeaderView {
+    
+    func configureContent() {
+        clipsToBounds = true
+        translatesAutoresizingMaskIntoConstraints = false
+        configureLastButton()
+        configureDiffButton()
+    }
+    
+    func configureLastButton() {
+        lastButton.showsMenuAsPrimaryAction = true
+        lastButton.menu = setMoreButton()
         
         lastButton.layer.borderWidth = 2
         lastButton.layer.borderColor = UIColor.gray.cgColor
         lastButton.layer.cornerRadius = 5
-        
-        
-        lastButton.showsMenuAsPrimaryAction = true
-        lastButton.menu = setMoreButton()
+    }
+    
+    func configureDiffButton() {
+        diffButton.layer.borderWidth = 2
+        diffButton.layer.borderColor = UIColor.gray.cgColor
+        diffButton.layer.cornerRadius = 5
         
         diffButton.addTarget(self, action: #selector(diffButtonAction), for: .touchUpInside)
     }
@@ -104,20 +126,15 @@ class SectionTitleHeaderView: UICollectionReusableView {
                 print("Yüksek")
             })
         ])
-        
         return menuItems
-        
     }
-    
+}
+
+// MARK: - Actions
+extension SectionTitleHeaderView {
     
     @objc func diffButtonAction() {
         print("tapped")
     }
-    
-    private func configureContent() {
-        clipsToBounds = true
-        translatesAutoresizingMaskIntoConstraints = false
-    }
 }
-
 

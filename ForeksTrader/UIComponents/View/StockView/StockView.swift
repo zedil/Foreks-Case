@@ -18,6 +18,14 @@ public class StockView: UIView {
         return image
     }()
     
+    public let titleSubtitleStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 2
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
     var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.white
@@ -65,31 +73,24 @@ extension StockView {
     
     private func addSubViews() {
         addSubview(imageView)
-        addSubview(titleLabel)
-        addSubview(subtitleLabel)
+        addSubview(titleSubtitleStackView)
+        
+        titleSubtitleStackView.addArrangedSubview(titleLabel)
+        titleSubtitleStackView.addArrangedSubview(subtitleLabel)
     }
     
     private func applyConstraints() {
         let imageViewConst = [
-            imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ]
         NSLayoutConstraint.activate(imageViewConst)
         
-        let titleLabelConst = [
-            titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 4),
-            titleLabel.topAnchor.constraint(equalTo: imageView.topAnchor),
+        let stackViewConst = [
+            titleSubtitleStackView.leadingAnchor.constraint(equalTo: self.imageView.trailingAnchor, constant: 5),
+            titleSubtitleStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ]
-        NSLayoutConstraint.activate(titleLabelConst)
-        
-        let subtitleConst = [
-            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
-            subtitleLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            subtitleLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor)
-        ]
-        NSLayoutConstraint.activate(subtitleConst)
-        
-        self.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        NSLayoutConstraint.activate(stackViewConst)
     }
 }
 

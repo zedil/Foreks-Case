@@ -35,13 +35,9 @@ extension TraderListViewModel {
             guard let self else { return }
             switch result {
             case .success(let success):
-                
-                success.first!.mypageDefaults.map({ TraderListCellModel(pageDefaults: $0) })
+                //success.first!.mypageDefaults.map({ TraderListCellModel(pageDefaults: $0) })
                 tkeArray = success.first?.mypageDefaults.map({ $0.tke }) ?? []
-                
                 getStockDetail(stc: tkeArray)
-                
-                
             case .failure(let error):
                 print(error)
             }
@@ -57,7 +53,6 @@ extension TraderListViewModel {
                 
                 self.cellItems = list
                 self.reloadData?()
-                
             case .failure(let error):
                 print(error)
             }

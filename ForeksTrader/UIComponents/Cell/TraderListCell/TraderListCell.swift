@@ -13,6 +13,14 @@ class TraderListCell: UICollectionViewCell {
     
     static let identifier = "TraderListCell"
     
+    public let horizontalStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 10
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
     public let lastLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.white
@@ -47,35 +55,20 @@ class TraderListCell: UICollectionViewCell {
 extension TraderListCell {
     
     private func addSubviews() {
-        addSubview(stockTitleView)
-        addSubview(lastLabel)
-        addSubview(differenceLabel)
+        addSubview(horizontalStackView)
         
+        horizontalStackView.addArrangedSubview(stockTitleView)
+        horizontalStackView.addArrangedSubview(lastLabel)
+        horizontalStackView.addArrangedSubview(differenceLabel)
     }
     
     private func applyConstraints() {
-        let stockTitleViewConst = [
-            stockTitleView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            stockTitleView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 4),
-            stockTitleView.heightAnchor.constraint(equalToConstant: 45),
-            stockTitleView.widthAnchor.constraint(equalToConstant: 60)
+        let stackViewConst = [
+            horizontalStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 4),
+            horizontalStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
+            horizontalStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ]
-        NSLayoutConstraint.activate(stockTitleViewConst)
-        
-        
-        let diffLabelConst = [
-            differenceLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -4),
-            differenceLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-        ]
-        NSLayoutConstraint.activate(diffLabelConst)
-        
-        
-        let lastLabelConst = [
-            lastLabel.trailingAnchor.constraint(equalTo: differenceLabel.trailingAnchor, constant: -80),
-            lastLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-        ]
-        NSLayoutConstraint.activate(lastLabelConst)
-        
+        NSLayoutConstraint.activate(stackViewConst)
     }
 }
 
