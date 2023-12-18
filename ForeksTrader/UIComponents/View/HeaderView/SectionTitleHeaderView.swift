@@ -11,7 +11,7 @@ class SectionTitleHeaderView: UICollectionReusableView {
     
     static let identifier = "SectionTitleHeaderView"
     
-    public let headerStackView: UIStackView = {
+    private let headerStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.spacing = 10
@@ -19,7 +19,7 @@ class SectionTitleHeaderView: UICollectionReusableView {
         return stack
     }()
     
-    public let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.white
         label.text = "Sembol"
@@ -28,7 +28,7 @@ class SectionTitleHeaderView: UICollectionReusableView {
         return label
     }()
     
-    public let lastButton: UIButton = {
+    private let lastButton: UIButton = {
         let button = UIButton()
         button.setTitle("Son", for: .normal)
         button.contentEdgeInsets = UIEdgeInsets(top: 1, left: 10, bottom: 1, right: 10)
@@ -37,7 +37,7 @@ class SectionTitleHeaderView: UICollectionReusableView {
         return button
     }()
     
-    public let diffButton: UIButton = {
+    private let diffButton: UIButton = {
         let button = UIButton()
         button.setTitle("% Fark", for: .normal)
         button.contentEdgeInsets = UIEdgeInsets(top: 1, left: 10, bottom: 1, right: 10)
@@ -46,7 +46,7 @@ class SectionTitleHeaderView: UICollectionReusableView {
         return button
     }()
     
-    override public init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
         applyConstraint()
@@ -70,7 +70,7 @@ extension SectionTitleHeaderView {
         headerStackView.addArrangedSubview(diffButton)
     }
     
-    func applyConstraint() {
+    private func applyConstraint() {
         let stackViewConst = [
             headerStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             headerStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
@@ -83,14 +83,14 @@ extension SectionTitleHeaderView {
 // MARK: - Configure
 extension SectionTitleHeaderView {
     
-    func configureContent() {
+    private func configureContent() {
         clipsToBounds = true
         translatesAutoresizingMaskIntoConstraints = false
         configureLastButton()
         configureDiffButton()
     }
     
-    func configureLastButton() {
+    private func configureLastButton() {
         lastButton.showsMenuAsPrimaryAction = true
         lastButton.menu = setMoreButton()
         
@@ -99,7 +99,7 @@ extension SectionTitleHeaderView {
         lastButton.layer.cornerRadius = 5
     }
     
-    func configureDiffButton() {
+    private func configureDiffButton() {
         diffButton.layer.borderWidth = 2
         diffButton.layer.borderColor = UIColor.gray.cgColor
         diffButton.layer.cornerRadius = 5
@@ -107,7 +107,7 @@ extension SectionTitleHeaderView {
         diffButton.addTarget(self, action: #selector(diffButtonAction), for: .touchUpInside)
     }
     
-    func setMoreButton() -> UIMenu {
+    private func setMoreButton() -> UIMenu {
         let menuItems = UIMenu(title: "Kriter Seçiniz", options: .displayInline, children: [
             
             UIAction(title: "Son", handler: { (_) in

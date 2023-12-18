@@ -9,7 +9,7 @@ import UIKit
 
 public class StockView: UIView {
     
-    let imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "star.fill")
         image.contentMode = .scaleAspectFit
@@ -18,7 +18,7 @@ public class StockView: UIView {
         return image
     }()
     
-    public let titleSubtitleStackView: UIStackView = {
+    private let titleSubtitleStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.spacing = 2
@@ -26,7 +26,7 @@ public class StockView: UIView {
         return stack
     }()
     
-    var titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.white
         label.font = UIFont.boldSystemFont(ofSize: 15)
@@ -34,7 +34,7 @@ public class StockView: UIView {
         return label
     }()
     
-    var subtitleLabel: UILabel = {
+    private let subtitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.white
         label.font = UIFont.systemFont(ofSize: 10)

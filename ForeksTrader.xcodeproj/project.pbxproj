@@ -79,10 +79,9 @@
 			isa = PBXGroup;
 			children = (
 				A0ECB3C72B2F1404001045AB /* Manager */,
+				A051686B2B2DC54D00162AEF /* Entity */,
 				A0ECB3D02B2F3259001045AB /* Extensions */,
 				A0ECB3D22B2F3271001045AB /* Scene */,
-				A051686B2B2DC54D00162AEF /* Entity */,
-				A051686C2B2DC55400162AEF /* View */,
 				A0ECB3D42B2F32B6001045AB /* UIComponents */,
 				A05168572B2DC52A00162AEF /* AppDelegate.swift */,
 				A05168592B2DC52A00162AEF /* SceneDelegate.swift */,
@@ -102,14 +101,6 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
-		A051686C2B2DC55400162AEF /* View */ = {
-			isa = PBXGroup;
-			children = (
-				A05168782B2DF06500162AEF /* SectionTitleHeaderView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		A051686E2B2DC65200162AEF /* TraderListCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +116,14 @@
 				A05168742B2DCC3200162AEF /* StockView.swift */,
 			);
 			path = StockView;
+			sourceTree = "<group>";
+		};
+		A0B4F1D32B30A57F00BC9D55 /* HeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				A05168782B2DF06500162AEF /* SectionTitleHeaderView.swift */,
+			);
+			path = HeaderView;
 			sourceTree = "<group>";
 		};
 		A0ECB3C72B2F1404001045AB /* Manager */ = {
@@ -191,6 +190,7 @@
 		A0ECB3D72B2F3317001045AB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A0B4F1D32B30A57F00BC9D55 /* HeaderView */,
 				A05168732B2DCC1200162AEF /* StockView */,
 			);
 			path = View;

@@ -11,9 +11,6 @@ class TraderListViewController: UIViewController {
     
     private var viewModel = TraderListViewModel()
     
-    var stockView = StockView()
-    
-    
     private let listCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -42,11 +39,11 @@ class TraderListViewController: UIViewController {
 // MARK: - UILayout
 extension TraderListViewController {
     
-    func addSubviews() {
+    private func addSubviews() {
         view.addSubview(listCollectionView)
     }
     
-    func applyConstraints() {
+    private func applyConstraints() {
         let collectionViewConst = [
             listCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             listCollectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -60,13 +57,12 @@ extension TraderListViewController {
 // MARK: - Configure
 extension TraderListViewController {
     
-    func configureContents() {
+    private func configureContents() {
         view.backgroundColor = .black
-        
         setDelegates()
     }
     
-    func setDelegates() {
+    private func setDelegates() {
         listCollectionView.delegate = self
         listCollectionView.dataSource = self
     }
@@ -76,7 +72,7 @@ extension TraderListViewController {
 // MARK: - SubscribeViewModel
 extension TraderListViewController {
     
-    func subscribeViewModel() {
+    private func subscribeViewModel() {
         viewModel.reloadData = { [weak self] in
             guard let self else { return }
             DispatchQueue.main.async {

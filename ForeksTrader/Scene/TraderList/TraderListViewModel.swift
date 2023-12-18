@@ -44,7 +44,7 @@ extension TraderListViewModel {
         }
     }
     
-    func getStockDetail(stc: [String]) {
+    private func getStockDetail(stc: [String]) {
         APICaller.shared.fetchStockData(stcs: stc) { [weak self] result in
             guard let self else { return }
             switch result {

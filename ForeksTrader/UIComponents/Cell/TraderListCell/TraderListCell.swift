@@ -16,7 +16,7 @@ class TraderListCell: UICollectionViewCell {
     public let horizontalStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.spacing = 10
+        stack.spacing = 15
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -75,7 +75,7 @@ extension TraderListCell {
 // MARK: - Configure
 extension TraderListCell {
     
-    func configureContent() {
+    private func configureContent() {
         backgroundColor = .black
         translatesAutoresizingMaskIntoConstraints = false
     }
