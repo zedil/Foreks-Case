@@ -122,7 +122,12 @@ extension TraderListViewController: UICollectionViewDelegateFlowLayout {
         if kind == UICollectionView.elementKindSectionHeader {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionTitleHeaderView.identifier, for: indexPath) as! SectionTitleHeaderView
             
+            headerView.dataArray = viewModel.menuArray
             
+            if let menu = headerView.getMenu() {
+                headerView.lastButton.menu = menu
+                headerView.lastButton.showsMenuAsPrimaryAction = true
+            }
             return headerView
         }
         

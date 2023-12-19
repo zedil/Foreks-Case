@@ -7,10 +7,6 @@
 
 import Foundation
 
-enum APIError: Error {
-    case failed
-}
-
 class APICaller {
     
     static let shared = APICaller()
@@ -52,5 +48,13 @@ class APICaller {
             }
         }
         task.resume()
+    }
+}
+
+// MARK: - Enum
+extension APICaller {
+    
+    enum APIError: Error {
+        case failed
     }
 }

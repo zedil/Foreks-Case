@@ -9,6 +9,7 @@ import Foundation
 
 struct PageDefaults: Codable {
     let mypageDefaults: [MyPageDefaults]
+    let mypage: [MyPage]
 }
 
 struct MyPageDefaults: Codable {
@@ -17,3 +18,10 @@ struct MyPageDefaults: Codable {
     let tke: String
     let def: String
 }
+
+struct MyPage: Codable {
+    let name: String
+    let key: String
+}
+
+

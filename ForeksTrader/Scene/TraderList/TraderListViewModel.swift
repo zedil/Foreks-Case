@@ -25,6 +25,8 @@ final class TraderListViewModel: TraderListViewProtocol {
     var cellItems: [TraderListCellProtocol] = []
     var pageDefaultList: [MyPageDefaults]? = nil
     var reloadData: (() -> Void)?
+    
+    var menuArray: [String] = []
 }
 
 // MARK: - Request
@@ -35,8 +37,10 @@ extension TraderListViewModel {
             guard let self else { return }
             switch result {
             case .success(let success):
-                //success.first!.mypageDefaults.map({ TraderListCellModel(pageDefaults: $0) })
+                
+                menuArray = success.first?.mypage.map({ $0.name }) ?? []
                 tkeArray = success.first?.mypageDefaults.map({ $0.tke }) ?? []
+                
                 getStockDetail(stc: tkeArray)
             case .failure(let error):
                 print(error)

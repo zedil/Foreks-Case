@@ -11,6 +11,12 @@ class SectionTitleHeaderView: UICollectionReusableView {
     
     static let identifier = "SectionTitleHeaderView"
     
+    var dataArray: [String] = [] {
+        didSet {
+           // updateUIMenu()
+        }
+    }
+    
     private let headerStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
@@ -28,7 +34,7 @@ class SectionTitleHeaderView: UICollectionReusableView {
         return label
     }()
     
-    private let lastButton: UIButton = {
+    public let lastButton: UIButton = {
         let button = UIButton()
         button.setTitle("Son", for: .normal)
         button.contentEdgeInsets = UIEdgeInsets(top: 1, left: 10, bottom: 1, right: 10)
@@ -91,9 +97,6 @@ extension SectionTitleHeaderView {
     }
     
     private func configureLastButton() {
-        lastButton.showsMenuAsPrimaryAction = true
-        lastButton.menu = setMoreButton()
-        
         lastButton.layer.borderWidth = 2
         lastButton.layer.borderColor = UIColor.gray.cgColor
         lastButton.layer.cornerRadius = 5
@@ -107,26 +110,13 @@ extension SectionTitleHeaderView {
         diffButton.addTarget(self, action: #selector(diffButtonAction), for: .touchUpInside)
     }
     
-    private func setMoreButton() -> UIMenu {
-        let menuItems = UIMenu(title: "Kriter Seçiniz", options: .displayInline, children: [
-            
-            UIAction(title: "Son", handler: { (_) in
-                print("Son")
-            }),
-            UIAction(title: "%Fark", handler: { (_) in
-                print("Fark")
-            }),
-            UIAction(title: "Fark", handler: { (_) in
-                print("Fark")
-            }),
-            UIAction(title: "Düşük", handler: { (_) in
-                print("Düşük")
-            }),
-            UIAction(title: "Yüksek", handler: { (_) in
-                print("Yüksek")
-            })
-        ])
-        return menuItems
+    func getMenu() -> UIMenu? {
+        let menuActions: [UIAction] = dataArray.map { item in
+            return UIAction(title: item) { _ in
+                self.lastButton.setTitle(item, for: .normal)
+            }
+        }
+        return UIMenu(title: "Kriter Seçiniz", children: menuActions)
     }
 }
 
@@ -134,7 +124,7 @@ extension SectionTitleHeaderView {
 extension SectionTitleHeaderView {
     
     @objc func diffButtonAction() {
-        print("tapped")
+        
     }
 }
 
