@@ -12,6 +12,7 @@ public class StockView: UIView {
     private let imageView: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "star.fill")
+        image.tintColor = UIColor.green
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false

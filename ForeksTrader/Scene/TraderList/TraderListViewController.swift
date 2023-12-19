@@ -32,7 +32,7 @@ class TraderListViewController: UIViewController {
         applyConstraints()
         configureContents()
         subscribeViewModel()
-        viewModel.getData(leftField: "las", completion: {
+        viewModel.getData(leftField: viewModel.field, completion: {
             print("HERE I AM AND I DON'T KNOW WHAT TO DO WITH THIS COMPLETION")
         })
     }
@@ -139,7 +139,6 @@ extension TraderListViewController: UICollectionViewDelegateFlowLayout {
                     }
                 }
             }
-            
             return headerView
         }
         

@@ -22,11 +22,12 @@ protocol TraderListViewProtocol: TraderListViewDataSource, TraderListViewEventSo
 
 final class TraderListViewModel: TraderListViewProtocol {
     var tkeArray: [String] = []
-    var cellItems: [TraderListCellProtocol] = []
-    var pageDefaultList: [MyPageDefaults]? = nil
-    var reloadData: (() -> Void)?
-    
     var menuArray: [MyPage] = []
+    var cellItems: [TraderListCellProtocol] = []
+    
+    var field: String = "las"
+    
+    var reloadData: (() -> Void)?
 }
 
 // MARK: - Request
@@ -37,12 +38,11 @@ extension TraderListViewModel {
             guard let self else { return }
             switch result {
             case .success(let success):
-                
                 menuArray = success.first?.mypage ?? []
                 tkeArray = success.first?.mypageDefaults.map({ $0.tke }) ?? []
+                field = success.first?.mypage.map({ $0.key }).first ?? ""
                 
                 getStockDetail(field: leftField, stc: tkeArray)
-                completion()
             case .failure(let error):
                 print(error)
             }
@@ -55,7 +55,6 @@ extension TraderListViewModel {
             switch result {
             case .success(let success):
                 let list = success.first!.l.map({ TraderListCellModel(stockDetail: $0) })
-                
                 self.cellItems = list
                 self.reloadData?()
             case .failure(let error):
@@ -74,13 +73,5 @@ extension TraderListViewModel {
     
     func cellItemAt(indexPath: IndexPath) -> TraderListCellProtocol {
         return cellItems[indexPath.row]
-    }
-}
-
-// MARK: - Actions
-extension TraderListViewModel {
-    
-    func rateTapped() {
-        
     }
 }
