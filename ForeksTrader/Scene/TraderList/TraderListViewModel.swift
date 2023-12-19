@@ -26,30 +26,31 @@ final class TraderListViewModel: TraderListViewProtocol {
     var pageDefaultList: [MyPageDefaults]? = nil
     var reloadData: (() -> Void)?
     
-    var menuArray: [String] = []
+    var menuArray: [MyPage] = []
 }
 
 // MARK: - Request
 extension TraderListViewModel {
     
-    func getData() {
+    public func getData(leftField: String, completion: @escaping () -> Void) {
         APICaller.shared.getPageDefaults { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let success):
                 
-                menuArray = success.first?.mypage.map({ $0.name }) ?? []
+                menuArray = success.first?.mypage ?? []
                 tkeArray = success.first?.mypageDefaults.map({ $0.tke }) ?? []
                 
-                getStockDetail(stc: tkeArray)
+                getStockDetail(field: leftField, stc: tkeArray)
+                completion()
             case .failure(let error):
                 print(error)
             }
         }
     }
     
-    private func getStockDetail(stc: [String]) {
-        APICaller.shared.fetchStockData(stcs: stc) { [weak self] result in
+    private func getStockDetail(field: String, stc: [String]) {
+        APICaller.shared.fetchStockData(leftField: field, stcs: stc) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let success):

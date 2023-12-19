@@ -32,7 +32,9 @@ class TraderListViewController: UIViewController {
         applyConstraints()
         configureContents()
         subscribeViewModel()
-        viewModel.getData()
+        viewModel.getData(leftField: "las", completion: {
+            print("HERE I AM AND I DON'T KNOW WHAT TO DO WITH THIS COMPLETION")
+        })
     }
 }
 
@@ -124,10 +126,20 @@ extension TraderListViewController: UICollectionViewDelegateFlowLayout {
             
             headerView.dataArray = viewModel.menuArray
             
-            if let menu = headerView.getMenu() {
-                headerView.lastButton.menu = menu
-                headerView.lastButton.showsMenuAsPrimaryAction = true
+            if let menu = headerView.getLeftMenu() {
+                headerView.leftButton.menu = menu
+                headerView.leftButton.showsMenuAsPrimaryAction = true
             }
+            
+            headerView.leftButtonTapClosure = { [weak self] field in
+                guard let self else { return }
+                self.viewModel.getData(leftField: field) {
+                    DispatchQueue.main.async {
+                        self.listCollectionView.reloadData()
+                    }
+                }
+            }
+            
             return headerView
         }
         

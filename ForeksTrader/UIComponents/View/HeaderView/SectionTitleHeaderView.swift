@@ -11,11 +11,7 @@ class SectionTitleHeaderView: UICollectionReusableView {
     
     static let identifier = "SectionTitleHeaderView"
     
-    var dataArray: [String] = [] {
-        didSet {
-           // updateUIMenu()
-        }
-    }
+    var dataArray: [MyPage] = []
     
     private let headerStackView: UIStackView = {
         let stack = UIStackView()
@@ -34,7 +30,7 @@ class SectionTitleHeaderView: UICollectionReusableView {
         return label
     }()
     
-    public let lastButton: UIButton = {
+    public let leftButton: UIButton = {
         let button = UIButton()
         button.setTitle("Son", for: .normal)
         button.contentEdgeInsets = UIEdgeInsets(top: 1, left: 10, bottom: 1, right: 10)
@@ -43,7 +39,7 @@ class SectionTitleHeaderView: UICollectionReusableView {
         return button
     }()
     
-    private let diffButton: UIButton = {
+    public let rightButton: UIButton = {
         let button = UIButton()
         button.setTitle("% Fark", for: .normal)
         button.contentEdgeInsets = UIEdgeInsets(top: 1, left: 10, bottom: 1, right: 10)
@@ -51,6 +47,8 @@ class SectionTitleHeaderView: UICollectionReusableView {
         button.setTitleColor(.gray, for: .normal)
         return button
     }()
+    
+    var leftButtonTapClosure: ((String) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -72,8 +70,8 @@ extension SectionTitleHeaderView {
         addSubview(headerStackView)
         
         headerStackView.addArrangedSubview(titleLabel)
-        headerStackView.addArrangedSubview(lastButton)
-        headerStackView.addArrangedSubview(diffButton)
+        headerStackView.addArrangedSubview(leftButton)
+        headerStackView.addArrangedSubview(rightButton)
     }
     
     private func applyConstraint() {
@@ -97,34 +95,26 @@ extension SectionTitleHeaderView {
     }
     
     private func configureLastButton() {
-        lastButton.layer.borderWidth = 2
-        lastButton.layer.borderColor = UIColor.gray.cgColor
-        lastButton.layer.cornerRadius = 5
+        leftButton.layer.borderWidth = 2
+        leftButton.layer.borderColor = UIColor.gray.cgColor
+        leftButton.layer.cornerRadius = 5
     }
     
     private func configureDiffButton() {
-        diffButton.layer.borderWidth = 2
-        diffButton.layer.borderColor = UIColor.gray.cgColor
-        diffButton.layer.cornerRadius = 5
-        
-        diffButton.addTarget(self, action: #selector(diffButtonAction), for: .touchUpInside)
+        rightButton.layer.borderWidth = 2
+        rightButton.layer.borderColor = UIColor.gray.cgColor
+        rightButton.layer.cornerRadius = 5
     }
     
-    func getMenu() -> UIMenu? {
+    func getLeftMenu() -> UIMenu? {
         let menuActions: [UIAction] = dataArray.map { item in
-            return UIAction(title: item) { _ in
-                self.lastButton.setTitle(item, for: .normal)
+            return UIAction(title: item.name) { _ in
+                self.leftButton.setTitle(item.name, for: .normal)
+                self.leftButtonTapClosure?(item.key)
             }
         }
         return UIMenu(title: "Kriter Seçiniz", children: menuActions)
     }
 }
 
-// MARK: - Actions
-extension SectionTitleHeaderView {
-    
-    @objc func diffButtonAction() {
-        
-    }
-}
 
